@@ -10,7 +10,9 @@ router.get('/', function(req, res, next) {
             let articles = result.map(article=>{
                 return {
                     id:article._id,
-                    title:article.title
+                    title:article.title,
+                    cover:article.cover,
+                    date:article.date
                 }
             })
             data.articles = articles;
@@ -36,6 +38,14 @@ router.post('/addOrUpdateArticle', function(req, res, next) {
         title:req.body.title,
         content:req.body.content
     }
+    //匹配内容中的第一张图片
+    var imgReg = /<img.*?(?:>|\/>)/i;
+    var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    var firstImage = data.content.match(imgReg);
+    if(firstImage && firstImage.length>0){
+        data.cover = firstImage[0].match(srcReg)[1];
+    }
+
     if(req.body.id){
         data.id = req.body.id;
         Article.updateArticle(data,(code,result)=>{

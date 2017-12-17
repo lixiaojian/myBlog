@@ -14,9 +14,15 @@
 </head>
 <body>
 <h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
+
 <%for (var i=0;i<articles.length;i++){%>
-<p><a href="articles/<%= articles[i].id %>"><%= articles[i].title %></a></p>
+    <p>
+    <%if(articles[i].cover){%>
+        <img style="width: 100px;display: inline-block" src="<%= articles[i].cover %>" alt="">
+    <%}%>
+        <a href="articles/<%= articles[i].id %>"><%= articles[i].title %></a>
+        <span><%= dateFormat(articles[i].date) %></span>
+    </p>
 <%}%>
 </body>
 </html>

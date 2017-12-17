@@ -18,7 +18,12 @@ const addArticle = (article={},callback)=>{
         callback(101,'文章内容不能为空');
         return;
     }
-    dbUtil.insertOneDocument({title:article.title,content:article.content,date:Date.now()},callback,'artcle');
+    dbUtil.insertOneDocument({
+        title:article.title,
+        content:article.content,
+        cover:article.cover||'',
+        date:Date.now()
+    },callback,'artcle');
 }
 /**
  * 修改文章
@@ -38,7 +43,11 @@ const updateArticle = (article={},callback)=>{
         callback(101,'文章内容不能为空');
         return;
     }
-    dbUtil.updateOneDocument({_id:ObjectID(article.id)},{title:article.title,content:article.content},callback,'artcle');
+    dbUtil.updateOneDocument({_id:ObjectID(article.id)},{
+        title:article.title,
+        cover:article.cover||'',
+        content:article.content
+    },callback,'artcle');
 }
 /**
  * 查询文章
