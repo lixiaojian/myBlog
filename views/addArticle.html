@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <title>添加文章</title>
+    <link rel="stylesheet" href="javascripts/lib/rainbow/rainbow.css">
+</head>
+<body>
+<input type="hidden" id="article_id" value="5a3653fb4b58bb058dcf5bb6">
+<h2 id="title">这是标题2</h2>
+<div id="content">
+  <pre>
+    <code data-language="javascript">
+//这注释
+class User extends Person{
+    constructor(name,age){
+        this.name = name;
+        this.age = age;
+    }
+}
+function getProperty(oString) {
+    var oReference;
+    eval('oReference = test.prop.' + oString);
+    return oReference;
+}
+    </code>
+</pre>
+</div>
+<button id="button">更新内容</button>
+<script src="javascripts/lib/rainbow/rainbow-custom.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script>
+    var title = document.getElementById('title').innerHTML;
+    var content = document.getElementById('content').innerHTML;
+    var articleId = document.getElementById('article_id').value;
+    var data = {
+        title:title,
+        content:content
+    }
+    if(articleId){
+        data.id = articleId;
+    }
+    $(function () {
+        $('#button').on('click',function () {
+            $.ajax({
+                url:'/addOrUpdateArticle',
+                method:'POST',
+                dataType:'json',
+                data:data
+            }).done(function() {
+                console.log(22222);
+            })
+        });
+    });
+</script>
+</body>
+</html>
