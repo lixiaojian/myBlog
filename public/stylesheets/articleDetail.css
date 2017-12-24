@@ -1,0 +1,38 @@
+html{
+    font-family: PingFangSC,'helvetica neue','hiragino sans gb',arial,'microsoft yahei ui','microsoft yahei',simsun,sans-serif !important;
+}
+html *{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+h2{
+    text-align: center;
+}
+.page-content{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8px;
+}
+.is-pc{
+    position: relative;
+}
+.is-pc:before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    display: inline-block;
+    z-index: -1;
+    background: url("/images/article/article_bg.jpg");
+    background-size: cover;
+    opacity: .06;
+}
+img{
+    margin: 5px auto;
+    display: block;
+    max-width: 100%;
+}

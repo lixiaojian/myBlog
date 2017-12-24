@@ -107,14 +107,17 @@ pre {
     background-color: #000;
     word-wrap: break-word;
     margin: 0px;
-    padding: 10px;
+    padding: 0 10px;
     color: #fff;
     font-size: 14px;
-    margin-bottom: 20px
+    /*margin-bottom: 20px*/
 }
 
 pre, code {
-    font-family: 'Monaco', 'Menlo', courier, monospace
+    font-family: 'Monaco', 'Menlo', courier, monospace;
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
 }
 
 code span {
