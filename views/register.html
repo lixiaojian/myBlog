@@ -13,14 +13,38 @@
     <title>注册页</title>
 </head>
 <body>
-<form action="/user/register" method="post">
+<form id="registerForm">
     用户名:<input name="userName"><br>
     密码：<input type="password" name="password"><br>
     重复密码：<input type="text" name="repassword"><br>
     邮箱：<input type="email" name="email"><br>
     性别：男<input type="radio" name="sex" value="1">
     女<input type="radio" name="sex" value="2"> <br>
-    <button type="submit">提交</button>
+    <button id="submmit" type="button">提交</button>
 </form>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script>
+    $(function () {
+        var submitBtn = $('#submmit');
+        var form = $('#registerForm');
+        submitBtn.on('click',function (e) {
+            e.preventDefault();
+            var data = {};
+            var formData = form.serializeArray();
+            $.each(formData, function() {
+                data[this.name] = this.value;
+            });
+            $.ajax({
+                url:'/api/user/register',
+                dataType:'json',
+                method:'post',
+                data:data,
+                success:function (resp) {
+                    console.log(resp);
+                }
+            })
+        })
+    });
+</script>
 </body>
 </html>

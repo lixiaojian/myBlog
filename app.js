@@ -7,7 +7,11 @@ var ejs = require('ejs');
 
 var index = require('./routes/index');
 var articles = require('./routes/articles');
-var user = require('./routes/user')
+var userApi = require('./routes/userApi');
+var pageRouter = require('./routes/pageRouter');
+
+var api = require('./routes/userApi');
+
 var util = require('./utils')
 var app = express();
 
@@ -26,8 +30,11 @@ app.locals.dateFormat = util.dateFormat;
 
 //添加路由
 app.use('/', index);
+app.use('/', pageRouter);
+app.use('/api', userApi);
 app.use('/articles', articles);
-app.use('/user', user);
+// app.use('/user', user);
+// app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
