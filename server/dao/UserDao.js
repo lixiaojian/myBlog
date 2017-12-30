@@ -14,3 +14,10 @@ module.exports.saveUser = (user)=>{
     var u = new User(user);
     return u.save();
 }
+/**
+ * 通过用户名查询用户
+ */
+module.exports.getByUserName = (userName='')=>{
+    var query  = User.where({userName});
+    return query.findOne();
+}

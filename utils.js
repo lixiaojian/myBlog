@@ -55,7 +55,7 @@ const makeMd5 = (text) => {
  */
 module.exports.encryptPassword = (oriPassword,salt = getSalt()) => {
     return {
-        password:makeMd5(makeMd5(oriPassword) + getSalt()),
+        password:makeMd5(makeMd5(oriPassword) + salt),
         salt:salt
     };
 };

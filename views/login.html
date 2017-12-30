@@ -10,48 +10,36 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="edge"/>
-    <title>注册页</title>
+    <title>登录页</title>
 </head>
 <body>
-<form id="registerForm">
-    用户名:<input name="userName"><br>
-    密码：<input type="password" name="password"><br>
-    重复密码：<input type="text" name="repassword"><br>
-    邮箱：<input type="email" name="email"><br>
-    性别：男<input type="radio" name="sex" value="1">
-    女<input type="radio" name="sex" value="2"> <br>
-    <button id="submmit" type="button">提交</button>
+<form id="login_form">
+    <input id="cb_input" type="hidden" value="<%= cb %>" name="cb">
+    用户名：<input type="text" name="userName"><br>
+    密码：<input type="password" name="password">
+    <button id="login_button" type="button">登录</button>
 </form>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
 <script>
     $(function () {
-        var submitBtn = $('#submmit');
-        var form = $('#registerForm');
-        submitBtn.on('click',function (e) {
+        var form = $('#login_form');
+        $('#login_button').on('click',function (e) {
             e.preventDefault();
             var data = {};
             var formData = form.serializeArray();
             $.each(formData, function() {
                 data[this.name] = this.value;
             });
+
             $.ajax({
-                url:'/api/user/register',
-                dataType:'json',
+                url:'/api/user/login',
                 method:'post',
+                dataType:'json',
                 data:data,
-                success:function (resp) {
-                    console.log(resp);
+                success:function (result) {
+                    console.log(result);
                 }
             })
-            // $.ajax({
-            //     url:'/api/user/checkUserIsExist',
-            //     dataType:'json',
-            //     method:'get',
-            //     data:{userName:'test'},
-            //     success:function (resp) {
-            //         console.log(resp);
-            //     }
-            // })
         })
     });
 </script>

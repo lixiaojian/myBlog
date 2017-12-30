@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
+const url = require('url');
 
 
 var index = require('./routes/index');
@@ -24,6 +25,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//允许请求接口的域名
+const allowQequestDomain = [
+    'localhost'
+]
+/**
+ * 拦截所有的api请求，如果referer不是允许的 就拒绝
+ */
+app.use((req,res,next)=>{
+    if(req.url.startsWith('/api/')){
+        var hostname = url.parse(req.headers.referer).hostname;
+        if(!allowQequestDomain.includes(hostname)){
+            res.send({
+                code:401,
+                message:'非法请求'
+            });
+            return;
+        }
+    }
+    next();
+})
 
 //添加日期格式化的过滤器
 app.locals.dateFormat = util.dateFormat;
