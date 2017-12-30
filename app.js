@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 const url = require('url');
+const cookies = require('cookies')
 
 
 var index = require('./routes/index');
@@ -30,9 +31,10 @@ const allowQequestDomain = [
     'localhost'
 ]
 /**
- * 拦截所有的api请求，如果referer不是允许的 就拒绝
+ * 整个应用的中间件处理
  */
 app.use((req,res,next)=>{
+    //拦截所有的api请求，如果referer不是允许的 就拒绝
     if(req.url.startsWith('/api/')){
         var hostname = url.parse(req.headers.referer).hostname;
         if(!allowQequestDomain.includes(hostname)){
@@ -43,6 +45,13 @@ app.use((req,res,next)=>{
             return;
         }
     }
+    //将cookies对象注入到request里
+    req.cookies = new cookies(req,res);
+    //将用户信息保存到request中，以供全局访问
+    req.userInfo = {};
+    try {
+        req.userInfo = JSON.parse(req.cookies.get('userInfo'))
+    }catch (ex){}
     next();
 })
 
