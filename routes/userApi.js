@@ -25,12 +25,13 @@ router.use((req, res, next) => {
  * 注册
  */
 router.post('/user/register', function (req, res) {
-    const {userName, password, sex, email} = req.body;
+    const {userName, password, sex, email,phone} = req.body;
     let data = {
         userName,
         password,
         sex,
-        email
+        email,
+        phone
     }
     return UserService.saveUser(data).then(result => {
         if (result.code !== undefined) {
@@ -44,7 +45,8 @@ router.post('/user/register', function (req, res) {
                 userName: result.userName,
                 sex: result.sex,
                 email: result.email,
-                id: result._id
+                id: result._id,
+                phone:result.phone
             };
             responseData.message = '注册成功';
             responseData.code = 0;
@@ -86,9 +88,10 @@ router.post('/user/login', function (req, res) {
         if (!result) {
             responseData.code = 1;
             responseData.data = '';
-            responseData.data = '用户不存在！';
-            res.json(responseData);
-            return;
+            responseData.message = '用户不存在！';
+            return new Promise((resolve, reject)=>{
+                resolve();
+            })
         }
         var passwordObj = encryptPassword(password, result.salt);
         //登录成功
@@ -102,8 +105,9 @@ router.post('/user/login', function (req, res) {
         }else{
             responseData.code = 2;
             responseData.message = '用户名或密码不正确';
-            res.json(responseData);
-            return;
+            return new Promise((resolve, reject)=>{
+                resolve();
+            })
         }
     }).then(result=>{
         if(result){
@@ -113,7 +117,8 @@ router.post('/user/login', function (req, res) {
                 userName: userInfo.userName,
                 sex: userInfo.sex,
                 email: userInfo.email,
-                id: userInfo._id
+                id: userInfo._id,
+                phone:userInfo.phone
             };
             responseData.data = {
                 cb,
@@ -124,8 +129,6 @@ router.post('/user/login', function (req, res) {
             responseData.message = '登录成功！';
             res.json(responseData);
         }else{
-            responseData.code = 99;
-            responseData.message = '服务器错误，请稍后重试！'
             res.json(responseData);
         }
     }).catch(ex => {

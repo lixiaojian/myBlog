@@ -11,37 +11,29 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="edge"/>
     <title>登录页</title>
+    <link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/login.css">
 </head>
 <body>
-<form id="login_form">
+<form class="login-form" id="login_form">
+    <h2 class="form-title">登录</h2>
+    <div id="error_msg" class="error-message"></div>
     <input id="cb_input" type="hidden" value="<%= cb %>" name="cb">
-    用户名：<input type="text" name="userName"><br>
-    密码：<input type="password" name="password">
-    <button id="login_button" type="button">登录</button>
+    <div class="form-item">
+        <label for="user_name">用户名：</label>
+        <input autocomplete="false" placeholder="请输入您的用户名" id="user_name" value="<%= cb %>" name="userName">
+    </div>
+    <div class="form-item">
+        <label for="password">密码：</label>
+        <input autocomplete="false" id="password" placeholder="请输入您的登录密码" type="password" value="<%= cb %>" name="password">
+    </div>
+    <div class="form-item button-box">
+        <a href="javascript:;" id="login_button" class="login-btn">登录</a>
+    </div>
+    <p class="link-box"><a href="/register" class="link">没有账户？去注册</a></p>
 </form>
+<script src="/javascripts/common.js"></script>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-<script>
-    $(function () {
-        var form = $('#login_form');
-        $('#login_button').on('click',function (e) {
-            e.preventDefault();
-            var data = {};
-            var formData = form.serializeArray();
-            $.each(formData, function() {
-                data[this.name] = this.value;
-            });
-
-            $.ajax({
-                url:'/api/user/login',
-                method:'post',
-                dataType:'json',
-                data:data,
-                success:function (result) {
-                    console.log(result);
-                }
-            })
-        })
-    });
-</script>
+<script src="/javascripts/login/login.js"></script>
 </body>
 </html>

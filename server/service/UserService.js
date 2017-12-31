@@ -12,7 +12,7 @@ const encryptPassword = require('../../utils').encryptPassword;
  * @param userType 用户类型
  * @returns {*}
  */
-module.exports.saveUser = ({userName, password, sex, email, userType = 2}) => {
+module.exports.saveUser = ({userName, password, sex, email, userType = 2,phone}) => {
     if (!userName) {
         return new Promise(function (resolve, reject) {
             resolve({
@@ -30,7 +30,7 @@ module.exports.saveUser = ({userName, password, sex, email, userType = 2}) => {
         });
     }
     const newPassword = encryptPassword(password);
-    return UserDao.saveUser({userName, password: newPassword.password, sex, email, userType, salt: newPassword.salt});
+    return UserDao.saveUser({userName, password: newPassword.password, sex, email, userType, phone,salt: newPassword.salt});
 }
 
 /**
