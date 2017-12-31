@@ -27,7 +27,7 @@ body{
     z-index: -1;
     opacity: .3;
 }
-.login-form{
+.page-form{
     border: 2px solid #fff;
     border-color: rgba(255,255,255,.3);
     color: #fff;
@@ -37,12 +37,12 @@ body{
     left: 50%;
     top: 50%;
     margin-left: -225px;
-    margin-top: -233px;
     padding: 50px;
     border-radius: 20px;
     font-size: 18px;
 }
-.login-form h2{
+
+.page-form h2{
     text-align: center;
     margin: 0;
 }
@@ -66,13 +66,13 @@ body{
 .has-error .error-message{
     opacity: 1;
 }
-.form-item label{
+.form-item .item-lable{
     width: 90px;
     display: inline-block;
     text-align: justify;
     text-align-last: justify;
 }
-.form-item input{
+.form-item .input{
     width: 250px;
     background-color: transparent;
     border: none;
@@ -141,4 +141,52 @@ body{
 }
 .link-box .link:hover{
     color: rgba(15,155,241,.6);
+}
+
+.login-form{
+    margin-top: -233px;
+}
+.register-form{
+    padding: 30px 50px;
+    margin-top: -330px;
+}
+.register-form .form-item{
+    margin-bottom: 10px;
+    padding: 15px 0;
+}
+.form-item input[type="radio"]{
+    display: none;
+}
+
+.radio + label {
+    cursor: pointer;
+    margin-right: 20px;
+    vertical-align: text-top;
+    -webkit-appearance: none;
+    background-color: rgba(250,250,250,.2);
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 50px;
+    display: inline-block;
+    position: relative;
+}
+.radio:checked + label {
+    background-color: rgba(250,250,250,.8);
+    color: #99a1a7;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+}
+.radio:checked + label:after {
+    content: ' ';
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    position: absolute;
+    top: 3px;
+    background: #99a1a7;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+    text-shadow: 0px;
+    left: 3px;
+    font-size: 32px;
 }

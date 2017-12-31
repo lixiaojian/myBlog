@@ -13,19 +13,67 @@
     <title>登录页</title>
     <link href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/login.css">
+    <style>
+        #page_loadding{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: #fff;
+            transition: all 1s;
+        }
+        #page_loadding.loadding-hide{
+            opacity: 0;
+            z-index: -1000;
+        }
+        .loading{
+            width: 300px;
+            height: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            margin-top:100px;
+            position: relative;
+            background: lightblue;
+            overflow: hidden;
+        }
+        .loading span{
+            display:block;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: lightgreen;
+            -webkit-animation: changePosition 4s linear infinite;
+        }
+        @-webkit-keyframes changePosition{
+            0%{
+                -webkit-transform: translate(-300px);
+            }
+            50%{
+                -webkit-transform: translate(0);
+            }
+            100%{
+                -webkit-transform: translate(300px);
+            }
+        }
+    </style>
 </head>
 <body>
-<form class="login-form" id="login_form">
+<div id="page_loadding">
+    <div class="loading"><span></span></div>
+</div>
+<form class="login-form page-form" id="login_form">
     <h2 class="form-title">登录</h2>
     <div id="error_msg" class="error-message"></div>
     <input id="cb_input" type="hidden" value="<%= cb %>" name="cb">
     <div class="form-item">
-        <label for="user_name">用户名：</label>
-        <input autocomplete="false" placeholder="请输入您的用户名" id="user_name" value="<%= cb %>" name="userName">
+        <label class="item-lable" for="user_name">用户名：</label>
+        <input class="input" autocomplete="false" placeholder="请输入您的用户名" id="user_name" name="userName">
     </div>
     <div class="form-item">
-        <label for="password">密码：</label>
-        <input autocomplete="false" id="password" placeholder="请输入您的登录密码" type="password" value="<%= cb %>" name="password">
+        <label class="item-lable" for="password">密码：</label>
+        <input class="input" autocomplete="false" id="password" placeholder="请输入您的登录密码" type="password" name="password">
     </div>
     <div class="form-item button-box">
         <a href="javascript:;" id="login_button" class="login-btn">登录</a>
