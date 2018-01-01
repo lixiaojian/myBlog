@@ -25,7 +25,11 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'),{
+    setHeaders:function (resp,url) {
+        resp.setHeader('Cache-Control', 'max-age=691200');
+    }
+}));
 //允许请求接口的域名
 const allowQequestDomain = [
     'localhost'

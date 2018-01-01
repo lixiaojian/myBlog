@@ -2,6 +2,9 @@
  * Created by 872458899@qq.com on 2017/12/31.
  */
 ;$(function () {
+    layer.config({
+        shade:0.5
+    })
     //手机号码的正则
     var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
     //邮箱的正则
@@ -60,9 +63,11 @@
             setMessage('您输入的邮箱格式不正确！');
             return;
         }
+        var index = layer.load(3,{shade:0.5});
         checkUserName(data.userName).then(function (result) {
             if(result.code === 0 && result.data !== 0){
                 setMessage('该用户名已被注册！');
+                layer.close(index);
                 return;
             }else{
                 $.ajax({
@@ -71,8 +76,15 @@
                     method:'post',
                     data:data,
                     success:function (resp) {
+                        layer.close(index);
                         if(resp.code ===0){
-                            location.href = '/login';
+                            layer.msg('注册成功', {
+                                icon: 1,
+                                shade:0.5
+                            }, function(){
+                                location.href = '/login';
+                            });
+
                         }else{
                             setMessage(resp.message || '注册失败');
                         }
