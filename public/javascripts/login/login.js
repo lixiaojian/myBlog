@@ -26,8 +26,9 @@
             data:data,
             success:function (result) {
                 if(result.code === 0){
-                    if(result.cb){
-                        location.href = cb;
+                    //如果是从注册页面跳转过来的 就不再跳回注册页
+                    if(result.cb && result.cb.indexOf('/register') === -1){
+                        location.href = result.cb;
                     }else{
                         location.href = '/'
                     }

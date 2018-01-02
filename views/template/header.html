@@ -23,14 +23,18 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right user-nav">
-            <li class="user-name"><span>Akihiko Avaron</span></li>
+            <% if(!user.userName) { %>
+            <li class="user-name"><span><a href="/login">用户登录</a></span></li>
+            <% }else{ %>
+            <li class="user-name"><span><%= user.userName %></span></li>
             <li class="dropdown avatar-dropdown">
-                <img src="/images/common/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+                <img src="/images/common/avatar.jpg" class="img-circle avatar" alt="<%= user.userName %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
                 <ul class="dropdown-menu user-dropdown">
                     <li><a href="#"><span class="fa fa-user"></span>个人信息</a></li>
-                    <li><a href="#"><span class="fa fa-power-off"></span>退出登录</a></li>
+                    <li><a href="/logout"><span class="fa fa-power-off"></span>退出登录</a></li>
                 </ul>
             </li>
+            <% } %>
         </ul>
     </div>
 </div>

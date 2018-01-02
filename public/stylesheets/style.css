@@ -2441,7 +2441,9 @@ ul li a:focus {
     overflow: hidden;
     display: flex;
 }
-
+.navbar-header .avatar{
+    cursor: pointer;
+}
 .avatar {
     position: relative;
     padding: 0px;

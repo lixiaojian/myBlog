@@ -9,7 +9,7 @@ html,body{
     height: 100%;
 }
 body{
-    background-color: #000;
+    background-color: #143e77;
 }
 .is-pc{
     position: relative;
@@ -26,6 +26,19 @@ body{
     background-size: cover;
     z-index: -1;
     opacity: .3;
+}
+
+::-webkit-input-placeholder{
+    color:#ccc !important;
+}
+::-moz-placeholder{
+    color:#ccc !important;
+}
+:-ms-input-placeholder{
+    color:#ccc !important;
+}
+::input-placeholder{
+    color:#ccc !important;
 }
 .page-form{
     border: 2px solid #fff;
