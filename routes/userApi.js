@@ -152,15 +152,18 @@ router.post('/user/login', function (req, res) {
                 user: user
             };
             //给浏览器发送一个cookie，浏览器会记录该cookie 过期时间8个小时
-            req.cookies.set('userInfo',JSON.stringify({userName,userToken:result.userToken}),{maxAge:8*3600*1000});
+            const nickName = new Buffer(userInfo.nickName).toString('base64');
+            req.cookies.set('userInfo',JSON.stringify({userName,userToken:result.userToken,nickName}),{maxAge:8*3600*1000});
             responseData.message = '登录成功！';
             res.json(responseData);
         }else{
             res.json(responseData);
         }
     }).catch(ex => {
+        console.log(ex);
         responseData.code = 99;
-        responseData.message = '服务器错误，请稍后重试！'
+        responseData.message = '服务器错误，请稍后重试！';
+        responseData.data = {};
         res.json(responseData);
     })
 })

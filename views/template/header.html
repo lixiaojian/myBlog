@@ -28,7 +28,7 @@
             <% }else{ %>
             <li class="user-name"><span><%= user.userName %></span></li>
             <li class="dropdown avatar-dropdown">
-                <span class="avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><%= user.userName.substr(user.userName.length-1).toUpperCase() %></span>
+                <span class="avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><%= showUserImg(user) %></span>
                 <ul class="dropdown-menu user-dropdown">
                     <li><a href="#"><span class="fa fa-user"></span>个人信息</a></li>
                     <li><a href="/logout"><span class="fa fa-power-off"></span>退出登录</a></li>

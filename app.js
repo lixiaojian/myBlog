@@ -59,7 +59,7 @@ app.use((req,res,next)=>{
     if(userInfo){
         try{
             const user = JSON.parse(userInfo)
-            const {userName,userToken} = user;
+            const {userName,userToken,nickName} = user;
             req.userInfo = user;
             //验证用户的token
             if(userName && userToken){
@@ -72,7 +72,8 @@ app.use((req,res,next)=>{
                         req.cookies.set('userInfo',{},{maxAge:-1});
                         req.userInfo = {};
                     }else{
-                        req.userToken = result
+                        req.userToken = result;
+                        req.userToken.nickName = new Buffer(nickName, 'base64').toString();
                     }
                     next();
                 }))
@@ -80,7 +81,6 @@ app.use((req,res,next)=>{
                 next();
             }
         }catch (e){
-            console.log(e);
             next();
         }
     }else{
@@ -90,6 +90,11 @@ app.use((req,res,next)=>{
 
 //添加日期格式化的过滤器
 app.locals.dateFormat = util.dateFormat;
+//根据用户昵称生成用户头像
+app.locals.showUserImg = (user={})=>{
+    const name = user.nickName || user.userName;
+    return name.substr(name.length-1).toUpperCase();
+}
 
 //添加路由
 app.use('/', index);
