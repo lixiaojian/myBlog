@@ -59,21 +59,6 @@ module.exports.checkUserInfo = param=>{
         }
     })
 }
-// /**
-//  * 验证用户是否存在 1:存在 0:不存在
-//  * @param userName
-//  */
-// module.exports.checkUserIsExist = (param) => {
-//     return checkUser(param);
-// }
-// /**
-//  * 验证用户昵称是否存在
-//  * @param param
-//  * @return {*}
-//  */
-// module.exports.checkNickUserIsExist = (param) => {
-//     return checkUser(param);
-// }
 /**
  * 通过用户名查询用户
  * @param userName
@@ -85,4 +70,11 @@ module.exports.getUserByUserName=userName=>{
             resove(result[0]);
         })
     });
+}
+/**
+ *
+ * @param userName
+ */
+module.exports.queryUser=(param,page)=>{
+    return UserDao.queryUser(param,page);
 }

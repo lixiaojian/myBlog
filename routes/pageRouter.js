@@ -4,6 +4,7 @@
 var express = require('express');
 var router = express.Router();
 const TokenService = require('../server/service/TokenService');
+const UserService = require('../server/service/UserService');
 
 /**
  * 主页
@@ -42,4 +43,24 @@ router.get('/logout',function (req, res) {
     req.cookies.set('userInfo',{},{maxAge:-1});
     res.redirect('login')
 })
+/**
+ * 用户列表
+ */
+router.get('/userlist',function (req, res) {
+    //设置回调链接
+    const pageNumber = req.query.pn || 1;
+    var userInfo = req.userInfo;
+    UserService.queryUser({},{number:pageNumber}).then(result=>{
+        console.log(result);
+        if(userInfo.userName){
+            //用户已登录
+            var userToken = req.userToken || {};
+            res.render('userList',{user:userToken});
+        }else{
+            //用户未登录
+            res.render('userList',{user:{}});
+        }
+    })
+})
+
 module.exports = router;
