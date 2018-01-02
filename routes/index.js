@@ -2,28 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Article = require('../server/service/articleService');
 
-/* 主页. */
-router.get('/', function(req, res, next) {
-    Article.queryArticle({},(code,result)=>{
-        let data = {code:0,title:'文章列表'};
-        if(code==0){
-            let articles = result.map(article=>{
-                return {
-                    id:article._id,
-                    title:article.title,
-                    cover:article.cover,
-                    date:article.date
-                }
-            })
-            data.articles = articles;
-        }else{
-            data.code = code;
-            data.articles = [];
-            data.msg = result || '获取文章列表失败';
-        }
-        res.render('index',data);
-    })
-});
 /**
  * 添加文章的页面
  */

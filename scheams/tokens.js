@@ -12,6 +12,8 @@ module.exports =  mongoose.Schema({
     userToken:String,
     //用户最后一次访问的IP
     userIp:String,
+    //用户类型
+    userType:Number,
     //过期时间 8个小时
     createdAt:{
         type:Date,

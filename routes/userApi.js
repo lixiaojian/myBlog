@@ -99,9 +99,10 @@ router.post('/user/login', function (req, res) {
             userInfo = result;
             //写TOKEN
             const userIp = getClientIp(req);
+            const userType = result.userType;
             //token的生成对用户名加密
             const userToken = getEncAse192(userName,result.salt);
-            return TokenService.saveUserToken({userName,userToken,userIp});
+            return TokenService.saveUserToken({userName,userToken,userIp,userType});
         }else{
             responseData.code = 2;
             responseData.message = '用户名或密码不正确';

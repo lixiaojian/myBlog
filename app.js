@@ -11,6 +11,8 @@ var index = require('./routes/index');
 var articles = require('./routes/articles');
 var userApi = require('./routes/userApi');
 var pageRouter = require('./routes/pageRouter');
+const TokenService = require('./server/service/TokenService');
+const {getClientIp} = require('./utils');
 
 var api = require('./routes/userApi');
 
@@ -53,10 +55,37 @@ app.use((req,res,next)=>{
     req.cookies = new cookies(req,res);
     //将用户信息保存到request中，以供全局访问
     req.userInfo = {};
-    try {
-        req.userInfo = JSON.parse(req.cookies.get('userInfo'))
-    }catch (ex){}
-    next();
+    const userInfo = req.cookies.get('userInfo');
+    if(userInfo){
+        try{
+            const user = JSON.parse(userInfo)
+            const {userName,userToken} = user;
+            req.userInfo = user;
+            //验证用户的token
+            if(userName && userToken){
+                //获取用户Token信息
+                TokenService.getUserToken({userName,userToken}).then((result=>{
+                    var ip = getClientIp(req);
+                    //如果两次请求用的是同一个token并且ip不同 就认为是非正常登录
+                    if(ip !== result.userIp){
+                        //清除登录信息
+                        req.cookies.set('userInfo',{},{maxAge:-1});
+                        req.userInfo = {};
+                    }else{
+                        req.userToken = result
+                    }
+                    next();
+                }))
+            }else{
+                next();
+            }
+        }catch (e){
+            console.log(e);
+            next();
+        }
+    }else{
+        next();
+    }
 })
 
 //添加日期格式化的过滤器
