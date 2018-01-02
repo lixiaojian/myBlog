@@ -49,7 +49,7 @@ body{
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -225px;
+    transform: translate(-50%,-50%);
     padding: 50px;
     border-radius: 20px;
     font-size: 18px;
@@ -155,13 +155,8 @@ body{
 .link-box .link:hover{
     color: rgba(15,155,241,.6);
 }
-
-.login-form{
-    margin-top: -233px;
-}
 .register-form{
     padding: 30px 50px;
-    margin-top: -330px;
 }
 .register-form .form-item{
     margin-bottom: 10px;

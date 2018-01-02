@@ -17,7 +17,7 @@ module.exports.saveUser = (user)=>{
 /**
  * 通过用户名查询用户
  */
-module.exports.getByUserName = (userName='')=>{
-    var query  = User.where({userName});
-    return query.findOne();
+module.exports.queryUser = (param={})=>{
+    var query  = User.where(param);
+    return query.find();
 }

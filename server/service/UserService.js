@@ -12,7 +12,7 @@ const encryptPassword = require('../../utils').encryptPassword;
  * @param userType 用户类型
  * @returns {*}
  */
-module.exports.saveUser = ({userName, password, sex, email, userType = 2,phone}) => {
+module.exports.saveUser = ({userName, password, nickName,userType = 2}) => {
     if (!userName) {
         return new Promise(function (resolve, reject) {
             resolve({
@@ -30,16 +30,17 @@ module.exports.saveUser = ({userName, password, sex, email, userType = 2,phone})
         });
     }
     const newPassword = encryptPassword(password);
-    return UserDao.saveUser({userName, password: newPassword.password, sex, email, userType, phone,salt: newPassword.salt});
+    return UserDao.saveUser({userName, password: newPassword.password, nickName, userType,salt: newPassword.salt});
 }
 
 /**
- * 验证用户是否存在 1:存在 0:不存在
- * @param userName
+ * 验证用户信息是否已被占用
+ * @param param
+ * @return {Promise|*|PromiseLike<T>|Promise<T>}
  */
-module.exports.checkUserIsExist = (userName) => {
-    return UserDao.getByUserName(userName).then((result) => {
-        if (result) {
+module.exports.checkUserInfo = param=>{
+    return UserDao.queryUser(param).then((result) => {
+        if (result && result.length>0) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     code: 0,
@@ -58,11 +59,30 @@ module.exports.checkUserIsExist = (userName) => {
         }
     })
 }
+// /**
+//  * 验证用户是否存在 1:存在 0:不存在
+//  * @param userName
+//  */
+// module.exports.checkUserIsExist = (param) => {
+//     return checkUser(param);
+// }
+// /**
+//  * 验证用户昵称是否存在
+//  * @param param
+//  * @return {*}
+//  */
+// module.exports.checkNickUserIsExist = (param) => {
+//     return checkUser(param);
+// }
 /**
  * 通过用户名查询用户
  * @param userName
  * @returns {*}
  */
 module.exports.getUserByUserName=userName=>{
-    return UserDao.getByUserName(userName);
+    return UserDao.queryUser({userName}).then(result=>{
+        return new Promise((resove,reject)=>{
+            resove(result[0]);
+        })
+    });
 }

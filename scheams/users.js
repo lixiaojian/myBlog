@@ -11,6 +11,8 @@ module.exports =  mongoose.Schema({
     userName: String,
     //用户密码
     password:String,
+    //昵称
+    nickName:String,
     //用户邮箱
     email:String,
     //电话

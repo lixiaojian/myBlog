@@ -25,13 +25,11 @@ router.use((req, res, next) => {
  * 注册
  */
 router.post('/user/register', function (req, res) {
-    const {userName, password, sex, email,phone} = req.body;
+    const {userName, password, nickName} = req.body;
     let data = {
         userName,
         password,
-        sex,
-        email,
-        phone
+        nickName
     }
     return UserService.saveUser(data).then(result => {
         if (result.code !== undefined) {
@@ -43,10 +41,8 @@ router.post('/user/register', function (req, res) {
             //注册成功返回用户信息
             responseData.data = {
                 userName: result.userName,
-                sex: result.sex,
-                email: result.email,
                 id: result._id,
-                phone:result.phone
+                nickName:result.nickName
             };
             responseData.message = '注册成功';
             responseData.code = 0;
@@ -61,12 +57,11 @@ router.post('/user/register', function (req, res) {
 });
 
 /**
- * 验证用户是否存在
- * @param userName 用户名
+ * 验证用户信息是否已被占用
+ * @param param
  */
-router.get('/user/checkUserIsExist', function (req, res) {
-    var userName = req.query.userName;
-    UserService.checkUserIsExist(userName).then((result) => {
+const checkUserInfo = (res,param) =>{
+    UserService.checkUserInfo(param).then((result) => {
         responseData.code = result.code;
         responseData.data = result.data;
         responseData.message = result.message;
@@ -77,6 +72,37 @@ router.get('/user/checkUserIsExist', function (req, res) {
         responseData.data = '获取用户信息失败';
         res.json(responseData);
     })
+}
+
+/**
+ * 验证用户是否存在
+ * @param userName 用户名
+ */
+router.get('/user/checkUserIsExist', function (req, res) {
+    var userName = req.query.userName;
+    if(userName){
+        checkUserInfo(res,{userName});
+    }else{
+        responseData.code = 1;
+        responseData.data = '';
+        responseData.data = '用户名不能为空';
+        res.json(responseData);
+    }
+})
+/**
+ * 验证用户昵称是否存在
+ * @param userName 用户昵称
+ */
+router.get('/user/checkNickNameIsExist', function (req, res) {
+    var nickName = req.query.nickName;
+    if(nickName){
+        checkUserInfo(res,{nickName});
+    }else{
+        responseData.code = 1;
+        responseData.data = '';
+        responseData.data = '用户昵称不能为空';
+        res.json(responseData);
+    }
 })
 /**
  * 用户登录

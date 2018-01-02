@@ -11,12 +11,22 @@
     var emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
     var form = $('#registerForm');
     var errorMsg = $('#error_msg');
+    //验证用户名
     function checkUserName(userName) {
         return $.ajax({
             url: '/api/user/checkUserIsExist',
             dataType: 'json',
             method: 'get',
             data: {userName: userName}
+        })
+    }
+    //验证昵称
+    function checkNickName(nickName) {
+        return $.ajax({
+            url: '/api/user/checkNickNameIsExist',
+            dataType: 'json',
+            method: 'get',
+            data: {nickName: nickName}
         })
     }
     //验证用户名是否已存在
@@ -26,6 +36,17 @@
             checkUserName(userName).then(function (result) {
                 if(result.code === 0 && result.data !== 0){
                     setMessage('该用户名已被注册！');
+                }
+            })
+        }
+    })
+    //验证用户昵称是否已存在
+    $('#nick_name').on('blur', function () {
+        var nickName = $(this).val();
+        if (nickName) {
+            checkNickName(nickName).then(function (result) {
+                if(result.code === 0 && result.data !== 0){
+                    setMessage('该昵称已被占用！');
                 }
             })
         }
@@ -55,18 +76,17 @@
             setMessage('两次密码输入不一致！');
             return;
         }
-        if (data.phone && !phoneReg.test(data.phone)) {
-            setMessage('您输入的手机号码格式不正确！');
-            return;
-        }
-        if (data.email && !emailReg.test(data.email)) {
-            setMessage('您输入的邮箱格式不正确！');
-            return;
-        }
         var index = layer.load(3,{shade:0.5});
         checkUserName(data.userName).then(function (result) {
             if(result.code === 0 && result.data !== 0){
                 setMessage('该用户名已被注册！');
+                layer.close(index);
+                return;
+            }
+            return checkNickName(data.nickName);
+        }).then(function (result) {
+            if(result.code === 0 && result.data !== 0){
+                setMessage('该昵称已被占用！');
                 layer.close(index);
                 return;
             }else{
