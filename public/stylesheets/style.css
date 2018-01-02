@@ -1839,7 +1839,6 @@ ul li a:focus {
 .navbar .search {
     padding-top: 15px;
     padding-left: 10px;
-    color: #0c66ae;
 }
 
 .navbar .search .form-animate-text {
@@ -1866,7 +1865,7 @@ ul li a:focus {
 }
 
 .navbar .search .form-animate-text label {
-    color: #0c66ae;
+    color: #eee;
     font-size: 15px !important;
 }
 
@@ -1875,8 +1874,11 @@ ul li a:focus {
     border: 1px solid #EAE8E8;
     border-radius: 2px;
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1) !important;
+    text-align: center;
 }
-
+.user-dropdown span{
+    margin-right: 20px;
+}
 .user-dropdown li {
     overflow: inherit;
 }
