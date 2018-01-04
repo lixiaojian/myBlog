@@ -55,10 +55,10 @@ router.get('/userlist',function (req, res) {
         if(userInfo.userName){
             //用户已登录
             var userToken = req.userToken || {};
-            res.render('userList',{user:userToken});
+            res.render('userList',{user:userToken,users:result});
         }else{
             //用户未登录
-            res.render('userList',{user:{}});
+            res.render('userList',{user:{},users:result});
         }
     })
 })

@@ -11,21 +11,22 @@ var User = mongoose.model('user', usersSchema);
  * @param user
  */
 module.exports.saveUser = (user)=>{
+    user.createTime = new Date();
     var u = new User(user);
     return u.save();
 }
 /**
- * 通过用户名查询用户
+ * 通过条件查询用户
  */
 module.exports.queryUser = (param={},page={})=>{
     let {size,number} = page;
     size =  +size || 10;
     number =  +number || 1;
-    if(page){
+    if(page.number){
         let totalCount=0;
         return User.count(param).then(count=>{
             totalCount = count;
-            return User.find(param).limit(size).skip((number-1) * size)
+            return User.find(param,'_id userName nickName userType email phone sex createTime').limit(size).skip((number-1) * size)
         }).then(result=>{
             return new Promise((resolve,reject)=>{
                 const data = {

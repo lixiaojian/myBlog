@@ -21,6 +21,8 @@ module.exports =  mongoose.Schema({
     sex:Number,
     //用户类型 1：管理员 2：普通用户
     userType:Number,
+    //创建时间
+    createTime:Date,
     //密码盐值
     salt:String
 })

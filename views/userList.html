@@ -15,6 +15,7 @@
     <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/userList.css">
 </head>
 <body>
 <!-- start: Header -->
@@ -29,7 +30,6 @@
     </div>
     <!-- end: Left Menu -->
 
-
     <!-- start: Content -->
     <div id="content" class="article-v1">
         <div class="panel box-shadow-none content-header">
@@ -39,10 +39,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 page-content">
             <div class="panel">
-                用户列表
-            </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>用户昵称</th>
+                            <th>注册时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (var i=0;i<users.data.length;i++){%>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= users.data[i].userName %></td>
+                            <td><%= users.data[i].nickName %></td>
+                            <td><%= users.data[i].userName %></td>
+                            <td><a href="">修改</a> | <a href="">删除</a> </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            <!--</div>-->
         </div>
     </div>
     <!-- end: content -->
