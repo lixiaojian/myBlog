@@ -18,59 +18,68 @@
     <link rel="stylesheet" href="/stylesheets/userList.css">
 </head>
 <body>
-<!-- start: Header -->
-<nav class="navbar navbar-default header navbar-fixed-top">
-    <%- include('template/header.html') %>
-</nav>
-<!-- end: Header -->
-<div class="container-fluid mimin-wrapper">
-    <!-- start:Left Menu -->
-    <div id="left-menu">
-        <%- include('template/leftnav.html') %>
-    </div>
-    <!-- end: Left Menu -->
+    <!-- start: Header -->
+    <nav class="navbar navbar-default header navbar-fixed-top">
+        <%- include('template/header.html') %>
+    </nav>
+    <!-- end: Header -->
+    <div class="container-fluid mimin-wrapper">
+        <!-- start:Left Menu -->
+        <div id="left-menu">
+            <%- include('template/leftnav.html') %>
+        </div>
+        <!-- end: Left Menu -->
 
-    <!-- start: Content -->
-    <div id="content" class="article-v1">
-        <div class="panel box-shadow-none content-header">
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <h3 class="animated fadeInLeft">用户列表</h3>
+        <!-- start: Content -->
+        <div id="content" class="article-v1">
+            <div class="panel box-shadow-none content-header">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">用户列表</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content panel">
+                <div >
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>用户名</th>
+                                <th>用户昵称</th>
+                                <th>注册时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for (var i=0;i<users.data.length;i++){%>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= users.data[i].userName %></td>
+                                <td><%= users.data[i].nickName %></td>
+                                <td><%= users.data[i].userName %></td>
+                                <td><a href="">修改</a> | <a href="">删除</a> </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    <div class="page-warrper">
+                        <ul id="page_box" class="pagination"></ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-12 page-content">
-            <div class="panel">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>用户名</th>
-                            <th>用户昵称</th>
-                            <th>注册时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%for (var i=0;i<users.data.length;i++){%>
-                        <tr>
-                            <td><%= i+1 %></td>
-                            <td><%= users.data[i].userName %></td>
-                            <td><%= users.data[i].nickName %></td>
-                            <td><%= users.data[i].userName %></td>
-                            <td><a href="">修改</a> | <a href="">删除</a> </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            <!--</div>-->
-        </div>
+        <!-- end: content -->
     </div>
-    <!-- end: content -->
-</div>
-<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-<script src="/javascripts/frame.js"></script>
+    <script>
+        var totalRrcod=parseInt('<%= users.total %>');
+    </script>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="/javascripts/frame.js"></script>
+    <script src="/javascripts/lib/page/page.js"></script>
+    <script src="/javascripts/user/userList.js"></script>
+
 </body>
 </html>

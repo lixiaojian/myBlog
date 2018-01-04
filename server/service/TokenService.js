@@ -19,7 +19,6 @@ module.exports.saveUserToken = ({userName, userToken,userIp,userType}) => {
  * @return {*}
  */
 module.exports.removeUserToken = (id) => {
-    console.log(id);
     return TokenDao.removeUserToken(id);
 }
 /**

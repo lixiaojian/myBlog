@@ -367,10 +367,11 @@ p.quote:before {
     flex-direction: column;
 }
 .page-content{
+    margin: 0 20px;
     flex: 1;
 }
 .page-content>.panel{
-    height: 100%;
+    /*height: 100%;*/
 }
 
 /*start: Lock Screen*/

@@ -65,11 +65,7 @@ module.exports.checkUserInfo = param=>{
  * @returns {*}
  */
 module.exports.getUserByUserName=userName=>{
-    return UserDao.queryUser({userName}).then(result=>{
-        return new Promise((resove,reject)=>{
-            resove(result[0]);
-        })
-    });
+    return UserDao.queryUserByUserName(userName);
 }
 /**
  *

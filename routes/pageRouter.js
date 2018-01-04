@@ -38,20 +38,17 @@ router.get('/login',function (req, res) {
  * 退出登录
  */
 router.get('/logout',function (req, res) {
-    //设置回调链接
     //把cookie清掉
     req.cookies.set('userInfo',{},{maxAge:-1});
-    res.redirect('login')
+    res.redirect('login');
 })
 /**
  * 用户列表
  */
 router.get('/userlist',function (req, res) {
     //设置回调链接
-    const pageNumber = req.query.pn || 1;
     var userInfo = req.userInfo;
-    UserService.queryUser({},{number:pageNumber}).then(result=>{
-        console.log(result);
+    UserService.queryUser({},{number:1}).then(result=>{
         if(userInfo.userName){
             //用户已登录
             var userToken = req.userToken || {};

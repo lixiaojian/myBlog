@@ -16,17 +16,26 @@ module.exports.saveUser = (user)=>{
     return u.save();
 }
 /**
+ * 通过用户名查询用户
+ * @param userName
+ */
+module.exports.queryUserByUserName=(userName)=>{
+    return User.findOne({userName});
+}
+/**
  * 通过条件查询用户
  */
 module.exports.queryUser = (param={},page={})=>{
     let {size,number} = page;
     size =  +size || 10;
     number =  +number || 1;
+    //需要查询的字段名
+    const userPro = '_id userName nickName userType email phone sex createTime';
     if(page.number){
         let totalCount=0;
         return User.count(param).then(count=>{
             totalCount = count;
-            return User.find(param,'_id userName nickName userType email phone sex createTime').limit(size).skip((number-1) * size)
+            return User.find(param,userPro).limit(size).skip((number-1) * size)
         }).then(result=>{
             return new Promise((resolve,reject)=>{
                 const data = {
@@ -39,7 +48,6 @@ module.exports.queryUser = (param={},page={})=>{
             })
         })
     }else{
-        return User.find(param);
+        return User.find(param,userPro);
     }
-
 }
