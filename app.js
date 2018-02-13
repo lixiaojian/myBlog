@@ -8,7 +8,7 @@ const cookies = require('cookies')
 
 
 var index = require('./routes/index');
-var articles = require('./routes/articles');
+var articleApi = require('./routes/articleApi');
 var userApi = require('./routes/userApi');
 var pageRouter = require('./routes/pageRouter');
 const TokenService = require('./server/service/TokenService');
@@ -100,7 +100,8 @@ app.locals.showUserImg = (user={})=>{
 app.use('/', index);
 app.use('/', pageRouter);
 app.use('/api', userApi);
-app.use('/articles', articles);
+app.use('/api', articleApi);
+// app.use('/articles', articles);
 // app.use('/user', user);
 // app.use('/api', api);
 

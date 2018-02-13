@@ -4,26 +4,39 @@
 const ObjectID = require('mongodb').ObjectID;
 const dbUtil =  require('../dao/dbUtil');
 
+const ArticleDao = require('../dao/ArticleDao');
+
 /**
  * 添加文章
  * @param ariticle 文章实体
  * @param callback 操作后的回调
  */
-const addArticle = (article={},callback)=>{
-    if(!article.title){
-        callback(100,'文章标题不能为空');
-        return;
+module.exports.addArticle = (article={},callback)=>{
+    if (!article.title) {
+        return new Promise(function (resolve, reject) {
+            resolve({
+                code: 1,
+                message: '文章标题不能为空'
+            });
+        });
     }
-    if(!article.content){
-        callback(101,'文章内容不能为空');
-        return;
+    if (!article.content) {
+        return new Promise(function (resolve, reject) {
+            resolve({
+                code: 2,
+                message: '文章内容不能为空'
+            });
+        });
     }
-    dbUtil.insertOneDocument({
-        title:article.title,
-        content:article.content,
-        cover:article.cover||'',
-        date:Date.now()
-    },callback,'artcle');
+    var now = new Date();
+    article.createTime = now;
+    article.updateTime =now;
+    article.isDelete =0;
+    article.readNumber =0;
+    article.commentNumber =0;
+    article.admireNumber =0;
+    console.log(article);
+    return ArticleDao.addArticle(article);
 }
 /**
  * 修改文章
@@ -68,9 +81,11 @@ const getArticleById = (id,callback)=>{
         callback && callback(code,re);
     },'artcle');
 }
-module.exports = {
-    addArticle,
-    updateArticle,
-    queryArticle,
-    getArticleById
-};
+module.exports.queryArticle=(param,page)=>{
+    return ArticleDao.queryArticle(param,page);
+}
+// module.exports = {
+//     addArticle,
+//     updateArticle,
+//     getArticleById
+// };

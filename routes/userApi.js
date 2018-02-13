@@ -153,7 +153,7 @@ router.post('/user/login', function (req, res) {
             };
             //给浏览器发送一个cookie，浏览器会记录该cookie 过期时间8个小时
             const nickName = new Buffer(userInfo.nickName).toString('base64');
-            req.cookies.set('userInfo',JSON.stringify({userName,userToken:result.userToken,nickName}),{maxAge:8*3600*1000});
+            req.cookies.set('userInfo',JSON.stringify({id:userInfo._id,userName,userToken:result.userToken,nickName}),{maxAge:8*3600*1000});
             responseData.message = '登录成功！';
             res.json(responseData);
         }else{

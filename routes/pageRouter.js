@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 const TokenService = require('../server/service/TokenService');
 const UserService = require('../server/service/UserService');
+const ArticlesService = require('../server/service/ArticleService');
 
 /**
  * 主页
@@ -56,6 +57,30 @@ router.get('/userlist',function (req, res) {
         }else{
             //用户未登录
             res.render('userList',{user:{},users:result});
+        }
+    })
+})
+/**
+ * 跳转到添加文章的页面
+ */
+router.get('/addArticles',function (req, res) {
+    res.render('addArticle',{});
+})
+/**
+ * 跳转到文章列表页面
+ */
+router.get('/articles',function (req, res) {
+    //设置回调链接
+    var userInfo = req.userInfo;
+    ArticlesService.queryArticle({},{number:1}).then(result=>{
+        console.log(result);
+        if(userInfo.userName){
+            //用户已登录
+            var userToken = req.userToken || {};
+            res.render('index1',{user:userToken,articles:result.data,title:'文章列表'});
+        }else{
+            //用户未登录
+            res.render('index1',{user:{},articles:result.data,title:'文章列表'});
         }
     })
 })

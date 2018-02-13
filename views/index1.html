@@ -17,11 +17,12 @@
 
 <%for (var i=0;i<articles.length;i++){%>
     <p>
-    <%if(articles[i].cover){%>
-        <img style="width: 100px;display: inline-block" src="<%= articles[i].cover %>" alt="">
+    <%if(articles[i].previewImg){%>
+        <img style="width: 100px;display: inline-block" src="<%= articles[i].previewImg %>" alt="">
     <%}%>
         <a href="articles/<%= articles[i].id %>"><%= articles[i].title %></a>
-        <span><%= dateFormat(articles[i].date) %></span>
+        <span><%= dateFormat(articles[i].createTime) %></span>
+        <span><%= articles[i].author.nickName %></span>
     </p>
 <%}%>
 </body>

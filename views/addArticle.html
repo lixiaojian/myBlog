@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="stylesheets/articleDetail.css">
 </head>
 <body>
-<input type="hidden" id="article_id" value="5a3653fb4b58bb058dcf5bb6">
+<input type="hidden" id="article_id" value="">
 <h2 id="title">这是标题2</h2>
 <div id="content">
     这里是文字，什么这里是文字，什么字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，
@@ -56,7 +56,7 @@ function getProperty(oString) {
     $(function () {
         $('#button').on('click',function () {
             $.ajax({
-                url:'/addOrUpdateArticle',
+                url:'http://localhost:3000/api/artcle/add',
                 method:'POST',
                 dataType:'json',
                 data:data
