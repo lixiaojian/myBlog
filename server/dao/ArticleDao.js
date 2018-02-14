@@ -39,6 +39,6 @@ module.exports.queryArticle = (param={},page={})=>{
             })
         })
     }else{
-        return Article.find(param,userPro);
+        return Article.find(param);
     }
 }

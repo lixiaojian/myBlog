@@ -35,7 +35,6 @@ module.exports.addArticle = (article={},callback)=>{
     article.readNumber =0;
     article.commentNumber =0;
     article.admireNumber =0;
-    console.log(article);
     return ArticleDao.addArticle(article);
 }
 /**

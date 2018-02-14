@@ -1,0 +1,107 @@
+.article-v1 .article-v1-body{
+    padding: 0;
+    position: relative;
+}
+.article-v1 .article-v1-body:before{
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 100%;
+    background-color: #afdcf8;
+    position: absolute;
+    top: 0;
+    left: 130px;
+}
+.crtcle-item{
+    padding: 20px;
+    margin:10px 60px 10px 160px;
+    background-color: #7db7e6;
+    color: #fff;
+    border-radius: 5px;
+    position: relative;
+}
+.crtcle-item:before{
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #7db7e6;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    left: -10px;
+    top: 20px;
+}
+.crtcle-item:after{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 3px solid #7db7e6;
+    position: absolute;
+    left: -33px;
+    top: 25px;
+}
+.crtcle-item .artcle-date{
+    position: absolute;
+    color: #6cbfee;
+    width: 100px;
+    text-align: right;
+    top: 8px;
+    left: -150px;
+    font-size: 16px;
+}
+.crtcle-item .artcle-date-year{
+    font-weight: 700;
+    font-size: 22px;
+}
+.crtcle-item .previewimg-box{
+    width: 200px;
+    height: 100px;
+    float: left;
+    margin-right: 20px;
+    display: flex;
+}
+.crtcle-item .previewimg{
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+.crtcle-item .artcle-title{
+    color: #fff;
+    font-size: 18px;
+    word-spacing: .1rem;
+    letter-spacing: .1rem;
+    font-weight: normal;
+}
+.article-v1 .crtcle-item .artcle-item-footer{
+    text-indent: 0;
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 0 240px;
+    width: 100%;
+    margin: 0!important;
+}
+.footer-icon{
+    padding-right: 20px;
+    font-size: 20px;
+}
+.crtcle-item .text-content-box{
+    padding-bottom: 30px;
+}
+
+.crtcle-item .go-detail{
+    font-size: 15px;
+    color: #fff;
+    font-weight: normal;
+}
+.create-date,.author{
+    display: inline-block;
+    color: #dedede;
+    padding: 5px 10px 5px 0;
+}

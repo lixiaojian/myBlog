@@ -63,7 +63,7 @@ router.get('/userlist',function (req, res) {
 /**
  * 跳转到添加文章的页面
  */
-router.get('/addArticles',function (req, res) {
+router.get('/addArticle',function (req, res) {
     res.render('addArticle',{});
 })
 /**
@@ -73,16 +73,33 @@ router.get('/articles',function (req, res) {
     //设置回调链接
     var userInfo = req.userInfo;
     ArticlesService.queryArticle({},{number:1}).then(result=>{
-        console.log(result);
         if(userInfo.userName){
             //用户已登录
             var userToken = req.userToken || {};
-            res.render('index1',{user:userToken,articles:result.data,title:'文章列表'});
+            res.render('articleList',{user:userToken,articles:result.data,title:'文章列表'});
         }else{
             //用户未登录
-            res.render('index1',{user:{},articles:result.data,title:'文章列表'});
+            res.render('articleList',{user:{},articles:result.data,title:'文章列表'});
         }
     })
+})
+/**
+ * 跳转到文章详情页
+ */
+router.get('/article/:id',function (req, res) {
+    const id = req.params.id;
+    //设置回调链接
+    // var userInfo = req.userInfo;
+    // ArticlesService.queryArticle({},{number:1}).then(result=>{
+    //     if(userInfo.userName){
+    //         //用户已登录
+    //         var userToken = req.userToken || {};
+    //         res.render('articleList',{user:userToken,articles:result.data,title:'文章列表'});
+    //     }else{
+    //         //用户未登录
+    //         res.render('articleList',{user:{},articles:result.data,title:'文章列表'});
+    //     }
+    // })
 })
 
 module.exports = router;

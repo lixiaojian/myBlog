@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <title>文章列表页</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/artcleList.css">
+</head>
+<body>
+    <!-- start: Header -->
+    <nav class="navbar navbar-default header navbar-fixed-top">
+        <%- include('template/header.html') %>
+    </nav>
+    <!-- end: Header -->
+    <div class="container-fluid mimin-wrapper">
+        <!-- start:Left Menu -->
+        <div id="left-menu">
+            <%- include('template/leftnav.html') %>
+        </div>
+        <!-- end: Left Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="article-v1">
+            <div class="panel box-shadow-none content-header">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <h3 class="animated fadeInLeft">文章列表</h3>
+                        <p class="animated fadeInDown">
+                            文章版块 <span class="fa-angle-right fa"></span> 文章列表
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-12  article-v1-body">
+                            <%for (var i=0;i<articles.length;i++){%>
+                            <div class="crtcle-item">
+                                <div class="artcle-date">
+                                    09-08
+                                    <div class="artcle-date-year">2017</div>
+                                </div>
+                                <div class="clearfix">
+                                    <%if(articles[i].previewImg){%>
+                                    <span class="previewimg-box">
+                                        <img class="previewimg" src="<%= articles[i].previewImg %>" alt="">
+                                    </span>
+                                    <%}%>
+                                    <div class="text-content-box">
+                                        <div>
+                                            <a class="artcle-title" href="article/<%= articles[i].id %>"><%= articles[i].title %></a>
+                                        </div>
+                                        <span class="create-date"><%= dateFormat(articles[i].createTime) %></span>
+                                        <span class="author"><%= articles[i].author.nickName %></span>
+                                    </div>
+                                </div>
+                                <p class="artcle-item-footer">
+                                    <span title="赞赏量" class="footer-icon"><i class="glyphicon glyphicon-thumbs-up"></i> <%= articles[i].admireNumber %></span>
+                                    <span title="阅读量" class="footer-icon"><i class="glyphicon glyphicon-eye-open"></i> <%= articles[i].readNumber %></span>
+                                    <a href="article/<%= articles[i].id %>" class="go-detail pull-right">阅读原文</a>
+                                </p>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: content -->
+    </div>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="/javascripts/frame.js"></script>
+</body>
+</html>
