@@ -11,15 +11,16 @@ const ArticlesService = require('../server/service/ArticleService');
  * 主页
  */
 router.get('/', function(req, res, next) {
-    var userInfo = req.userInfo;
-    if(userInfo.userName){
-        //用户已登录
-        var userToken = req.userToken || {};
-        res.render('index',{user:userToken});
-    }else{
-        //用户未登录
-        res.render('index',{user:{}});
-    }
+    res.redirect('/articles')
+    // var userInfo = req.userInfo;
+    // if(userInfo.userName){
+    //     //用户已登录
+    //     var userToken = req.userToken || {};
+    //     res.render('index',{user:userToken});
+    // }else{
+    //     //用户未登录
+    //     res.render('index',{user:{}});
+    // }
 });
 /**
  * 用户注册页
@@ -88,18 +89,21 @@ router.get('/articles',function (req, res) {
  */
 router.get('/article/:id',function (req, res) {
     const id = req.params.id;
-    //设置回调链接
-    // var userInfo = req.userInfo;
-    // ArticlesService.queryArticle({},{number:1}).then(result=>{
-    //     if(userInfo.userName){
-    //         //用户已登录
-    //         var userToken = req.userToken || {};
-    //         res.render('articleList',{user:userToken,articles:result.data,title:'文章列表'});
-    //     }else{
-    //         //用户未登录
-    //         res.render('articleList',{user:{},articles:result.data,title:'文章列表'});
-    //     }
-    // })
+    var userInfo = req.userInfo;
+    ArticlesService.queryArticleById(id).then(function (result) {
+        if(result.code){
+
+        }else{
+            if(userInfo.userName){
+                //用户已登录
+                var userToken = req.userToken || {};
+                res.render('artcleDetail',{user:userToken,article:result});
+            }else{
+                //用户未登录
+                res.render('artcleDetail',{user:{},article:result});
+            }
+        }
+    })
 })
 
 module.exports = router;

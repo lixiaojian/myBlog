@@ -13,9 +13,21 @@ function addZero(number) {
  * @param date
  * @returns {string}
  */
-module.exports.dateFormat = function(date) {
+module.exports.dateFormat = function(date,formater) {
     const d = new Date(date);
-    return d.getFullYear()+'年'+addZero(d.getMonth()+1)+'月'+addZero(d.getDay())+'日 '+addZero(d.getHours())+'时'+addZero(d.getMinutes())+'分'+addZero(d.getSeconds())+'秒';
+    var year = d.getFullYear();
+    var month = addZero(d.getMonth()+1);
+    var day = addZero(d.getDate());
+    var hour = addZero(d.getHours());
+    var min = addZero(d.getMinutes());
+    var sec = addZero(d.getSeconds());
+    if(formater == 'YYYY'){
+        return year;
+    }
+    if(formater == 'MM-DD'){
+        return month+'-'+day;
+    }
+    return year+'年'+month+'月'+day+'日 '+hour+'时'+min+'分'+sec+'秒';
 };
 
 /*

@@ -49,8 +49,8 @@
                             <%for (var i=0;i<articles.length;i++){%>
                             <div class="crtcle-item">
                                 <div class="artcle-date">
-                                    09-08
-                                    <div class="artcle-date-year">2017</div>
+                                    <%= dateFormat(articles[i].createTime,'MM-DD') %>
+                                    <div class="artcle-date-year"><%= dateFormat(articles[i].createTime,'YYYY') %></div>
                                 </div>
                                 <div class="clearfix">
                                     <%if(articles[i].previewImg){%>

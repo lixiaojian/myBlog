@@ -20,6 +20,7 @@ module.exports.queryArticle = (param={},page={})=>{
     let {size,number} = page;
     size =  +size || 10;
     number =  +number || 1;
+    param.isDelete = false;
     //需要查询的字段名
     //const userPro = '_id title content author createTime updateTime previewImg readNumber';
     if(page.number){
@@ -41,4 +42,11 @@ module.exports.queryArticle = (param={},page={})=>{
     }else{
         return Article.find(param);
     }
+}
+
+/**
+ * 通过id查询文章
+ */
+module.exports.queryArticleById = (id)=>{
+    return Article.findOne({_id:id,isDelete:false});
 }

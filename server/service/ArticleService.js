@@ -74,17 +74,20 @@ const queryArticle = (query={},callback)=>{
  * @param id
  * @param callback
  */
-const getArticleById = (id,callback)=>{
-    dbUtil.findDocuments({_id:ObjectID(id)},(code,result)=>{
-        let re = Array.isArray(result)?result[0]:result;
-        callback && callback(code,re);
-    },'artcle');
+module.exports.queryArticleById = (id)=>{
+    if(!id){
+       return new Promise((resolve, reject)=>{
+           resolve({code:'1',message:'请求参数错误'})
+       })
+    }
+    return ArticleDao.queryArticleById(id);
 }
+/**
+ * 通过条件查询文章
+ * @param param
+ * @param page
+ * @return {*}
+ */
 module.exports.queryArticle=(param,page)=>{
     return ArticleDao.queryArticle(param,page);
 }
-// module.exports = {
-//     addArticle,
-//     updateArticle,
-//     getArticleById
-// };
