@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Article = require('../server/service/articleService');
+var Article = require('../server/service/ArticleService');
 
 router.post('/artcle/add', function(req, res, next) {
     if(!req.userInfo.id){
