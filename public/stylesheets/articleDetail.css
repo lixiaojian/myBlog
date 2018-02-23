@@ -1,5 +1,6 @@
 html{
     font-family: PingFangSC,'helvetica neue','hiragino sans gb',arial,'microsoft yahei ui','microsoft yahei',simsun,sans-serif !important;
+    line-height: 1.6;
 }
 html *{
     box-sizing: border-box;
@@ -10,26 +11,18 @@ body{
 h2{
     text-align: center;
 }
+p{
+    text-indent: 2em;
+}
+.quote-block{
+    padding: 0 5px;
+    border-left: 4px solid #7db7e6;
+    background: #dbedf9;
+}
 .page-content{
     max-width: 900px;
     margin: 0 auto;
     padding: 8px;
-}
-.is-pc{
-    position: relative;
-}
-.is-pc:before{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-    display: inline-block;
-    z-index: -1;
-    background: url("/images/article/article_bg.jpg");
-    background-size: cover;
-    opacity: .06;
 }
 img{
     margin: 5px auto;

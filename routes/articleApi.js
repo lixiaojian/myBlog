@@ -27,29 +27,8 @@ router.post('/artcle/add', function(req, res, next) {
         if(result.code !== undefined){
             res.send({code:result.code,data:result.data,msg:result.message})
         }else{
-            res.send({code:0,msg:'添加成功'});
+            res.send({code:0,message:'添加成功'});
         }
     })
 });
-/* GET users listing. */
-router.get('/artcle/:id', function (req, res, next) {
-    const id = req.params.id;
-    let data = {
-        code: 0,
-        article: {}
-    }
-    if (id) {
-        Article.getArticleById(id, (code, result) => {
-            if (code == 0) {
-                data.article = result;
-            }
-            res.render('articleDetail', data);
-        })
-    } else {
-        data.code = 1;
-        data.msg='查询条件有误';
-        res.render('articleDetail', data);
-    }
-});
-
 module.exports = router;

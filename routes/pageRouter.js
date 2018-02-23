@@ -92,8 +92,15 @@ router.get('/article/:id',function (req, res) {
     var userInfo = req.userInfo;
     ArticlesService.queryArticleById(id).then(function (result) {
         if(result.code){
-
+            res.render('error', {message:result.message || '服务器错误，请稍后重试'});
         }else{
+            result.readNumber = result.readNumber+1;
+            ArticlesService.updateArticle(result).then(resp=>{
+                console.log(resp);
+            }).catch(ex=>{
+                console.log(ex);
+            });
+
             if(userInfo.userName){
                 //用户已登录
                 var userToken = req.userToken || {};

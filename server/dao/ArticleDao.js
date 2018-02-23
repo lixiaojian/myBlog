@@ -14,6 +14,20 @@ module.exports.addArticle = (article)=>{
     return a.save();
 }
 /**
+ * 修改文章
+ * @param article
+ * @return {Promise}
+ */
+module.exports.updateArticle = (article)=>{
+    var update = {
+            title:article.title,
+            cover:article.cover||'',
+            content:article.content,
+            readNumber:article.readNumber
+        };
+    return Article.findByIdAndUpdate(article._id,update);
+}
+/**
  * 通过条件查询文章
  */
 module.exports.queryArticle = (param={},page={})=>{

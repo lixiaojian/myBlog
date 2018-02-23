@@ -38,30 +38,6 @@ module.exports.addArticle = (article={},callback)=>{
     return ArticleDao.addArticle(article);
 }
 /**
- * 修改文章
- * @param article
- * @param callback
- */
-const updateArticle = (article={},callback)=>{
-    if(!article.id){
-        callback(99,'文章id不能为空');
-        return;
-    }
-    if(!article.title){
-        callback(100,'文章标题不能为空');
-        return;
-    }
-    if(!article.content){
-        callback(101,'文章内容不能为空');
-        return;
-    }
-    dbUtil.updateOneDocument({_id:ObjectID(article.id)},{
-        title:article.title,
-        cover:article.cover||'',
-        content:article.content
-    },callback,'artcle');
-}
-/**
  * 查询文章
  * @param query
  * @param callback
@@ -90,4 +66,27 @@ module.exports.queryArticleById = (id)=>{
  */
 module.exports.queryArticle=(param,page)=>{
     return ArticleDao.queryArticle(param,page);
+}
+/**
+ * 修改文章
+ *
+ */
+module.exports.updateArticle=(article)=>{
+    console.log(article);
+    if(!article._id){
+        return new Promise((resolve, reject)=>{
+            resolve({code:99,message:'文章id不能为空'})
+        })
+    }
+    if(!article.title){
+        return new Promise((resolve, reject)=>{
+            resolve({code:100,message:'文章标题不能为空'})
+        });
+    }
+    if(!article.content){
+        return new Promise((resolve, reject)=>{
+            resolve({code:101,message:'文章内容不能为空'})
+        });
+    }
+    return ArticleDao.updateArticle(article);
 }

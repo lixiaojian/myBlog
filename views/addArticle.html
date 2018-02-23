@@ -12,36 +12,21 @@
     <meta http-equiv="X-UA-Compatible" content="edge"/>
     <title>添加文章</title>
     <link rel="stylesheet" href="javascripts/lib/rainbow/rainbow.css">
+    <link href="https://cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/articleDetail.css">
 </head>
 <body>
 <input type="hidden" id="article_id" value="">
-<h2 id="title">这是标题2</h2>
+<h2 id="title">免费的HTTPS证书申请</h2>
 <div id="content">
-    这里是文字，什么这里是文字，什么字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，
-    <img src="/images/test/css3.jpeg" alt="">
-    这里是文字，什么字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，这里是文字，什么字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，这里是文字，什么字伏特加比上课以东西易面苛斯柯达，斯柯达，斯柯达苛，在 夺顶起问惹我犹他爵士DV发v打飞机目标明确 在要djhf，
-  <pre>
-    <code data-language="javascript">
-//这注释
-class User extends Person{
-    constructor(name,age){
-        this.name = name;
-        this.age = age;
-    }
-}
-function getProperty(oString) {
-    var oReference;
-    eval('oReference = test.prop.' + oString);
-    return oReference;
-}
-    </code>
-</pre>
-    <img src="/images/test/html5.png" alt="">
+    <img src="/images/article/https/https.jpg" style="display: none">
+    <p class="quote-block">HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。 它是一个URI scheme（抽象标识符体系），句法类同http:体系。用于安全的HTTP数据传输。https:URL表明它使用了HTTP，但HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）。这个系统的最初研发由网景公司(Netscape)进行，并内置于其浏览器Netscape Navigator中，提供了身份验证与加密通讯方法。现在它被广泛用于万维网上安全敏感的通讯，例如交易支付方面。</p>
+    <p>谷歌Chrome安全产品经理艾米丽·谢克特（Emily Schechter）发表博文，证实当该公司在7月发布Chrome 68浏览器时，该浏览器将把所有未采用HTTPS（安全套接字层超文本传输协议）加密的网站都标记为“不安全”网站。这也就意味着只要用chrome68访问未采用HTTPS加密的网站都会被标记为不安全的网站，此举将加速HTTPS协议的普及。所以我们需要把自己的网站改成https协议的，下面就介绍一下免费https的获取。</p>
 </div>
 <button id="button">更新内容</button>
 <script src="javascripts/lib/rainbow/rainbow-custom.min.js"></script>
 <script src="//cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
 <script>
     var title = document.getElementById('title').innerHTML;
     var content = document.getElementById('content').innerHTML;
@@ -51,7 +36,7 @@ function getProperty(oString) {
         content:content
     }
     if(articleId){
-        data.id = articleId;
+        data._id = articleId;
     }
     $(function () {
         $('#button').on('click',function () {
@@ -60,8 +45,24 @@ function getProperty(oString) {
                 method:'POST',
                 dataType:'json',
                 data:data
-            }).done(function() {
-                console.log(22222);
+            }).done(function(resp) {
+                if(resp.code == 401){
+                    layer.open({
+                        title: '提示信息',
+                        content: resp.message || '身份不合法，请重新登录后再试',
+                        yes:function () {
+                            location.href = '/login?cb='+location.href;
+                        }
+                    });
+                }else if(resp.code == 0){
+                    layer.open({
+                        title: '提示信息',
+                        content: resp.message || '操作成功',
+                        yes:function () {
+                            location.href = '/';
+                        }
+                    });
+                }
             })
         });
     });
