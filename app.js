@@ -32,6 +32,11 @@ app.use(express.static(path.join(__dirname, 'public'),{
         resp.setHeader('Cache-Control', 'max-age=691200');
     }
 }));
+
+app.get('/favicon.ico',function (req,res) {
+    res.sendFile(path.join(__dirname,'/favicon.ico'));
+});
+
 //允许请求接口的域名
 const allowQequestDomain = [
     'localhost',
