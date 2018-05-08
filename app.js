@@ -34,7 +34,9 @@ app.use(express.static(path.join(__dirname, 'public'),{
 }));
 //允许请求接口的域名
 const allowQequestDomain = [
-    'localhost'
+    'localhost',
+    'blog.lixj.vip',
+    'www.lixj.vip'
 ]
 /**
  * 整个应用的中间件处理
