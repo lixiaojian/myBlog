@@ -96,7 +96,7 @@ router.get('/article/:id',function (req, res) {
         }else{
             result.readNumber = result.readNumber+1;
             ArticlesService.updateArticle(result).then(resp=>{
-                console.log(resp);
+                // console.log(resp);
             }).catch(ex=>{
                 console.log(ex);
             });

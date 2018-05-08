@@ -72,7 +72,6 @@ module.exports.queryArticle=(param,page)=>{
  *
  */
 module.exports.updateArticle=(article)=>{
-    console.log(article);
     if(!article._id){
         return new Promise((resolve, reject)=>{
             resolve({code:99,message:'文章id不能为空'})

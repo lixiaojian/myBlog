@@ -21,7 +21,7 @@ module.exports.addArticle = (article)=>{
 module.exports.updateArticle = (article)=>{
     var update = {
             title:article.title,
-            cover:article.cover||'',
+            previewImg:article.previewImg||'',
             content:article.content,
             readNumber:article.readNumber
         };

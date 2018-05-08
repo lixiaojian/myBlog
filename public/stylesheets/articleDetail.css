@@ -14,6 +14,19 @@ h2{
 p{
     text-indent: 2em;
 }
+.link{
+    text-decoration: none;
+    color: #7db7e6;
+}
+.list-item{
+    padding: 5px 0;
+    list-style: cjk-ideographic;
+}
+.big-img{
+    display: block;
+    max-width: 100%;
+    box-shadow: 0 0 4px rgba(204, 204, 204, 0.58);
+}
 .quote-block{
     padding: 0 5px;
     border-left: 4px solid #7db7e6;
