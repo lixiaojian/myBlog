@@ -41,7 +41,7 @@ module.exports.queryArticle = (param={},page={})=>{
         let totalCount=0;
         return Article.count(param).then(count=>{
             totalCount = count;
-            return Article.find(param).populate('author').limit(size).skip((number-1) * size)
+            return Article.find(param).sort('-createTime').populate('author').limit(size).skip((number-1) * size)
         }).then(result=>{
             return new Promise((resolve,reject)=>{
                 const data = {
