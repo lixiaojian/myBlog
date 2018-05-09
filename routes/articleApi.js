@@ -29,11 +29,15 @@ router.post('/artcle/save', function(req, res, next) {
     if(id){
         data._id = id;
         Article.updateArticle(data).then(result=>{
-            if(result.code !== undefined){
+            if(!result){
+                res.send({code:404,message:'该文章不存在'});
+            }else if(result.code !== undefined){
                 res.send({code:result.code,data:result.data,msg:result.message})
             }else{
                 res.send({code:0,message:'文章修改成功'});
             }
+        }).catch(ex=>{
+            res.send({code:100,message:'服务器错误'});
         })
     }else{
         Article.addArticle(data).then((result)=>{
@@ -42,6 +46,8 @@ router.post('/artcle/save', function(req, res, next) {
             }else{
                 res.send({code:0,message:'文章添加成功'});
             }
+        }).catch(ex=>{
+            res.send({code:100,message:'服务器错误'});
         })
     }
 });

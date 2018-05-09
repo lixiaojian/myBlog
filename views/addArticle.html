@@ -43,8 +43,6 @@
         </li>
         <li class="list-item">
             点击了购买后，就进入了支付页面，然后支付就好了，记得要同意它的服务协议。虽然价格是0，我们毕竟是购买，所以支付的流程还是要走的。
-            <!--<img class="big-img" src="/images/article/https/CA5.jpg" alt="证书申请">-->
-            <!--<img class="big-img" src="/images/article/https/CA6.jpg" alt="证书申请">-->
             <img class="big-img" src="/images/article/https/CA7.jpg" alt="证书申请">
         </li>
         <li class="list-item">
@@ -114,6 +112,11 @@
                         yes:function () {
                             location.href = '/';
                         }
+                    });
+                }else {
+                    layer.open({
+                        title: '提示信息',
+                        content: resp.message || '操作失败'
                     });
                 }
             })
