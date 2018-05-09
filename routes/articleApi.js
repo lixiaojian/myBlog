@@ -8,7 +8,7 @@ router.post('/artcle/save', function(req, res, next) {
             code:401,
             message:'非法请求,请重新登录后再试！'
         });
-
+        return;
     }
     const id = req.body._id;
     var data = {
