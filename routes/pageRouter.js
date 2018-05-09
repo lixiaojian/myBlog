@@ -91,7 +91,9 @@ router.get('/article/:id',function (req, res) {
     const id = req.params.id;
     var userInfo = req.userInfo;
     ArticlesService.queryArticleById(id).then(function (result) {
-        if(result.code){
+        if(!result){
+            res.render('error',{message:'文章不存在',error:{status:404,stack:'文章不存在'}});
+        }else if(result.code){
             res.render('error', {message:result.message || '服务器错误，请稍后重试'});
         }else{
             result.readNumber = result.readNumber+1;
@@ -110,6 +112,8 @@ router.get('/article/:id',function (req, res) {
                 res.render('artcleDetail',{user:{},article:result});
             }
         }
+    }).catch(ex=>{
+        res.render('error',{message:'文章不存在',error:{status:404,stack:'文章不存在'}});
     })
 })
 

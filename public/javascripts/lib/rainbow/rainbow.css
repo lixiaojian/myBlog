@@ -109,13 +109,13 @@ pre {
     margin: 0px;
     padding: 0 10px;
     color: #fff;
-    font-size: 14px;
-    /*margin-bottom: 20px*/
+    font-size: 0;
 }
-
+pre code{
+    font-size: 16px;
+}
 pre, code {
     font-family: 'Monaco', 'Menlo', courier, monospace;
-    display: inline-block;
     width: 100%;
     overflow-x: auto;
 }
@@ -169,11 +169,13 @@ pre .keyword, pre .selector, pre .operator {
 }
 
 pre .storage, pre .support {
-    color: #fb2639
+    color: #FFCC66
 }
-
+pre .function,pre .call{
+    color: #00EDF1;
+}
 pre .string {
-    color: #fff55c
+    color: #CCFFFF
 }
 
 pre .constant {

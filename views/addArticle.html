@@ -17,62 +17,92 @@
     <link rel="stylesheet" href="stylesheets/articleDetail.css">
 </head>
 <body>
-<input type="hidden" id="article_id" value="5af11ed988244b2acca7c656">
-<h2 id="title">免费的HTTPS证书申请</h2>
+<input type="hidden" id="article_id" value="">
+<h2 id="title">HTTPS证书配置之单域名</h2>
 <div id="content">
     <img src="/images/article/https/https.jpg" style="display: none">
-    <p class="quote-block">HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。 它是一个URI scheme（抽象标识符体系），句法类同http:体系。用于安全的HTTP数据传输。https:URL表明它使用了HTTP，但HTTPS存在不同于HTTP的默认端口及一个加密/身份验证层（在HTTP与TCP之间）。这个系统的最初研发由网景公司(Netscape)进行，并内置于其浏览器Netscape Navigator中，提供了身份验证与加密通讯方法。现在它被广泛用于万维网上安全敏感的通讯，例如交易支付方面。</p>
-    <p>谷歌Chrome安全产品经理艾米丽·谢克特（Emily Schechter）发表博文，证实当该公司在2018年7月发布Chrome 68浏览器时，该浏览器将把所有未采用HTTPS（安全套接字层超文本传输协议）加密的网站都标记为“不安全”网站。这也就意味着只要用chrome68访问未采用HTTPS加密的网站都会被标记为不安全的网站，此举将加速HTTPS协议的普及。所以我们需要把自己的网站改成https协议的，如果需要让自己的网站是https协议，就需要申请SSL证书，SSL证书有收费的，也有免费的，下面就介绍一下免费https的获取。</p>
-    <p>目前提供免费版SSL证书的品牌有很多，比如<a target="_blank" href="https://www.sslforfree.com" class="link">SSL FOR FREE网站</a>、<a target="_blank" href="https://www.aliyun.com/product/cas" class="link">阿里云</a>等，那接下来就来介绍一下我们国内的阿里云的免费SSL证书的申请方法。</p>
+    <p class="quote-block"><a href="/article/5af164da4fe9262f0f4465b3" class="link" target="_blank">上一篇</a>我们说到了SSL证书的申请，并且也得到了相应的证书文件，也就是一个xxxx.pem和一个xxxx.key两个文件，接下来我们就来说说怎么把这两个文件配置到我们的服务器上。服务器的类型有很多，接下来我主要就以NodeJs的服务器来说明。</p>
     <ul class="list">
         <li class="list-item">
-            首先打开阿里云的官网<a target="_blank" href="https://www.aliyun.com" class="link">https://www.aliyun.com</a>，然后登录（这里我们需要先有阿里云的账号，没有的话去注册一个就好），然后进入管理控制台，点击导航栏上面的产品与服务菜单，然后找到案例模块下的CA证书服务（数据安全）菜单，然后点击进去。
-            <img class="big-img" src="/images/article/https/CA1.jpg" alt="证书申请">
+            我们先来看一个简单的HTTP协议的Node服务的配置文件
+            <pre>
+                <code data-language="JavaScript" class="">
+const http = require('http');
+const path = require('path');
+const express = require('express');
+
+const app = express();
+//首页的路由
+app.get('/',function (req,res) {
+    res.sendFile(path.join(__dirname,'/index.html'));
+});
+//ico图标
+app.get('/favicon.ico',function (req,res) {
+    res.sendFile(path.join(__dirname,'/favicon.ico'));
+});
+
+//配置静态文件的访问
+app.use('/build', express.static(path.join(__dirname, 'build')));
+//创建一个服务并监听80端口
+http.createServer(app).listen(80);
+                </code>
+            </pre>
         </li>
         <li class="list-item">
-            接下来就进入到了我的证书界面，然后点击上面的购买证书，就进入了证书的购买界面，如下图
-            <img class="big-img" src="/images/article/https/CA2.jpg" alt="证书申请">
+            因为我们需要的是HTTPS的协议，不是HTTP的，所以我们就把上面的配置改成HTTPS的，Node也提供了对HTTTPS服务的支持，只需要将导入的HTTP模块换成HTTPS模块，然后将端口由80改成443（http协议默认端口是80，https协议默认端口是443，这里我们使用默认端口的好处就是可以通过ip或域名访问时省略端口的输入）,然后将证书配置给HTTPS模块就行了，修改如下
+            <pre>
+                <code data-language="JavaScript" class="">
+//const http = require('http');
+const https = require('https');
+const path = require('path');
+const express = require('express');
+
+const app = express();
+//配置SSL证书文件，请确保两个证书文件在根目录下的cert目录中，也可以放其他目录，需要对应修改下面的文件路径就行
+const option = {
+    key:fs.readFileSync('./cert/xxxx.key'),
+    cert:fs.readFileSync('./cert/xxxx.pem')
+}
+//首页的路由
+app.get('/',function (req,res) {
+    res.sendFile(path.join(__dirname,'/index.html'));
+});
+//ico图标
+app.get('/favicon.ico',function (req,res) {
+    res.sendFile(path.join(__dirname,'/favicon.ico'));
+});
+
+//配置静态文件的访问
+app.use('/build', express.static(path.join(__dirname, 'build')));
+//创建一个服务并监听443端口
+//http.createServer(app).listen(80);
+https.createServer(option,app).listen(443);
+                </code>
+            </pre>
         </li>
         <li class="list-item">
-            然而我们发现证书都是收费的，一年都好几千块钱，说好的免费证书呢，不要着急，跟着我的步骤来，就会出现免费的选项。先选品牌Symantec,然后选择保护类型为1个域名，就会发现证书类型上出现了免费型DV SSL的选项，然后选择它，右边的价格就变成0了，如下图
-            <img class="big-img" src="/images/article/https/CA3.jpg" alt="证书申请">
+            HTTPS配置和使用过程中可能出现的问题如下
+            <div>
+                1、如果我们直接使用HTTPS模块启动服务，没有配置xxxx.key和xxxx.pem文件，我们的页面将无法通过HTTPS协议来访问，如下图
+                <img class="big-img" src="/images/article/https_single_domain/s_d_1.jpg" alt="证书配置">
+            </div>
+            <div>
+                2、如果我们使用的xxxx.key和xxxx.pem文件的域名信息（我们在申请证书的时候是需要补全域名信息的）和我们当前的访问域名信息不相符或者证书过期的话（我们在申请证书时可以看到，免费证书的有效期是1年，过期后只需要重新申请就好了），我们的页面可以访问，但是会出现不安全的提示,比喻我们的证书申请的域名是blog.lixj.vip,然后我们将它配置到www.lixj.vip的域名上，结果如下图
+                <img class="big-img" src="/images/article/https_single_domain/s_d_2.jpg" alt="证书配置">
+            </div>
+            <div>
+                3、有时我们访问一些HTTPS协议的网站时，会提示“您的链接不是私密安全连接”（如下图），就是因为证书配置不正确或者证书过期的原因
+                <img class="big-img" src="/images/article/https_single_domain/s_d_4.jpg" alt="证书配置">
+            </div>
         </li>
         <li class="list-item">
-            价格是0了，我们就放心的购买吧
-            <img class="big-img" src="/images/article/https/CA4.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            点击了购买后，就进入了支付页面，然后支付就好了，记得要同意它的服务协议。虽然价格是0，我们毕竟是购买，所以支付的流程还是要走的。
-            <img class="big-img" src="/images/article/https/CA7.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            支付成功后我们再回到证书控制台，我们在控制台上就可以看到我们刚才买的证书，因为证书需要和域名绑定，所以我们还需要去补全我们的证书信息，直接点击证书后面的补全链接就行了
-            <img class="big-img" src="/images/article/https/CA8.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            进入到信息补全界面，按照我们的实际情况进行填写就好了，填完相应信息就点一下步，直到填完所有信息
-            <img class="big-img" src="/images/article/https/CA9.jpg" alt="证书申请">
-            <img class="big-img" src="/images/article/https/CA10.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            填完所有信息以后，提交审核就行了
-            <img class="big-img" src="/images/article/https/CA11.jpg" alt="证书申请">
-            <img class="big-img" src="/images/article/https/CA12.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            提交审核后，就可以看到审核进度了，这个审核还是很快的，一个工作日内就可以完成
-            <img class="big-img" src="/images/article/https/CA13.jpg" alt="证书申请">
-            <img class="big-img" src="/images/article/https/CA14.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            当审核进度是已签发时，就是审核完成了，我们就可以去下载SSL证书了
-            <img class="big-img" src="/images/article/https/CA15.jpg" alt="证书申请">
-        </li>
-        <li class="list-item">
-            进入下载页面后，我们就可以选择我们服务器对应的系统，然后下载证书，下载后我们会得到2个文件，一个是xxxx.pem,一个是xxxx.key。这两个文件就是我们需要的证书文件，我们它们配置到我们的服务器上，我们的网站就可以通过https的协议去访问了，并且不会被浏览器报出危险的警告。
-            <img class="big-img" src="/images/article/https/CA16.jpg" alt="证书申请">
+            只要配置成功了，我们的站点就是HTTPS协议的了，别人在访问我们的站点时就不会再提示是不安全的了。最后来一个配置成功的效果图
+            <img class="big-img" src="/images/article/https_single_domain/s_d_3.jpg" alt="证书配置">
         </li>
     </ul>
+    <div>
+        看起来是不是很简单，赶紧去奖自己的站点升级成HTTPS协议的吧！
+    </div>
 </div>
 <button id="button">更新内容</button>
 <script src="javascripts/lib/rainbow/rainbow-custom.min.js"></script>
