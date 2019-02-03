@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+    <meta http-equiv="Cache-Control" content="max-age=300"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="bootstrap-grid.css">
+    <style>
+        body{
+            background: #f1f1f1;
+        }
+        .container{
+            padding: 1rem;
+        }
+        .show-2-line{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+        }
+        .page-header{
+            height: 5.5rem;
+            background: rgba(102,180,254,.6);
+            color: #fff;
+        }
+        .page-header h2{
+            font-size: 2rem;
+        }
+        .header-sub{
+            padding-top: .5rem;
+            font-size: 1rem;
+            text-align: right;
+        }
+        .page-content{
+            padding-bottom: 50px;
+        }
+        .card{
+            width: 100%;
+            margin: .4rem 0;
+            border-radius: .5rem;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            transition: all .3s;
+        }
+        .card:hover{
+            transform: scale(1.01);
+        }
+
+        .card .card-header{
+            height: 5.4rem;
+            padding: 1.2rem 0;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            border-bottom: 1px solid #e8e8e8;
+            margin: 0;
+        }
+        .article-title{
+            /*height: 3rem;*/
+        }
+        .card-body{
+            padding: .5rem;
+        }
+        .img-warpper{
+            overflow: hidden;
+        }
+        .preview-img{
+            width: 100%;
+            transition: transform .6s;
+        }
+        .preview-img:hover{
+            transform: scale(1.2);
+        }
+        .article-desc{
+            padding-top: .6rem;
+            font-size: .9rem;
+            height: 2.4rem;
+        }
+        .card-footer{
+            border-top: 1px solid #e8e8e8;
+            padding: 1rem;
+        }
+        .card:hover{
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: rgba(0,0,0,0.1);
+        }
+        .page-footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .copy-rihgt{
+            text-align: center;
+            padding: 1rem;
+            background: #111;
+            border-top: 1px solid #303030;
+            color: #fff;
+        }
+        #canvas{
+            z-index: -1;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+        .page-nav{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            background: rgba(0,0,0,.5);
+            z-index: 1000;
+            transition: transform .5s;
+        }
+        .slide-in{
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+<body>
+<div id="canvas"></div>
+<nav class="page-nav slide-in" id="page_nav">
+<div><a href="javascript:;" id="close_nav">X</a></div>
+</nav>
+<header class="page-header">
+    <div class="container">
+        <h2><a id="show_nav_link" href="javascript:;">+</a>李晓健的个人博客</h2>
+        <div class="header-sub">没事的时候就记录一点，也许时间久了，记录的东西也就多了，我相信付出总会有回报的</div>
+    </div>
+</header>
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 </div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card">
+                    <header class="row card-header align-items-center">
+                        <div class="col article-title show-2-line">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</div>
+                    </header>
+                    <div class="card-body">
+                        <div class="img-warpper">
+                            <a href=""><img class="preview-img" src="jsq123.jpg" alt=""></a>
+                        </div>
+                        <div class="article-desc show-2-line">3分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS33分钟可以干什么？ 哈哈。 之前发了一个用CSS3</div>
+                    </div>
+                    <div class="card-footer">
+                        <div>2018-12-06 12:23:45 20000次浏览</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer">
+    <div class="copy-rihgt">© 2017 lixj.vip 版权所有 | 沪ICP备17028336号</div>
+</footer>
+<script src="Waves.js"></script>
+<script>
+    var pageNav = document.querySelector('#page_nav');
+    document.querySelector('#close_nav').addEventListener('click',function(){
+        pageNav.classList.add('slide-in');
+    })
+    document.querySelector('#show_nav_link').addEventListener('click',function () {
+        pageNav.classList.remove('slide-in');
+    })
+</script>
+</body>
+</html>
